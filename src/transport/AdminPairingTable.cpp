@@ -33,7 +33,7 @@ namespace Transport {
 CHIP_ERROR AdminPairingInfo::SetFabricLabel(const uint8_t * fabricLabel)
 {
     const char * charFabricLabel = Uint8::to_const_char(fabricLabel);
-    size_t stringLength = strnlen(charFabricLabel, kFabricLabelMaxLengthInBytes);
+    size_t stringLength          = strnlen(charFabricLabel, kFabricLabelMaxLengthInBytes);
     memcpy(mFabricLabel, charFabricLabel, stringLength);
     mFabricLabel[stringLength] = '\0'; // Set null terminator
 
@@ -56,7 +56,7 @@ CHIP_ERROR AdminPairingInfo::StoreIntoKVS(PersistentStorageDelegate * kvs)
     info->mVendorId = Encoding::LittleEndian::HostSwap16(mVendorId);
 
     size_t stringLength = strnlen(mFabricLabel, kFabricLabelMaxLengthInBytes);
-    memcpy(info.mFabricLabel, mFabricLabel , stringLength);
+    memcpy(info.mFabricLabel, mFabricLabel, stringLength);
     info.mFabricLabel[stringLength] = '\0'; // Set null terminator
 
     if (mOperationalKey != nullptr)
