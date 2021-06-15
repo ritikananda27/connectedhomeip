@@ -56,6 +56,30 @@ public:
                                                           uint8_t * certBuf, uint32_t certBufSize, uint32_t & outCertLen) = 0;
 
     /**
+         * @brief
+         *   This function generates an operational certificate for the given node.
+         *   The API generates the certificate in X.509 DER format.
+         *
+         *   The delegate is expected to use the certificate authority whose certificate
+         *   is returned in `GetIntermediateCACertificate()` or `GetRootCACertificate()`
+         *   API calls.
+         *
+         * @param[in] csr                                 Certificate Signing Request from the node in DER format.
+         * @param[in] csr_response_signature              Signature from CSR Response.
+         * @param[in] attestationCertificateChain         Device Attestation Certificate Chain.
+         * @param[in] attestationCertificateChainLength   The size of the Attestation Certificate Chain.
+         * @param[in] attestation_challenge               The challenge used for Device Attestation.
+         *
+         * @return CHIP_ERROR CHIP_NO_ERROR on success, or corresponding error code.
+         */
+        virtual CHIP_ERROR GenerateNodeOpCSR(const ByteSpan & csr, const uint8_t *csr_response_signature,
+                                             const uint8_t *attestationCertificateChain, uint32_t attestationCertificateChainLength,
+                                             unsigned char *attestation_challenge)
+         {
+          return CHIP_NO_ERROR;
+         }
+
+    /**
      * @brief
      *   This function returns the intermediate certificate authority (ICA) certificate corresponding to the
      *   provided fabric ID. Intermediate certificate authority is optional. If the controller
